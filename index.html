@@ -1,0 +1,2177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lena — Portofolio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --bg:#e7e0d4;
+    --paper:#f4eee4;
+    --ink:#151513;
+    --muted:#777168;
+    --gold:#a97732;
+    --gold-light:#d8b56f;
+    --dark:#151513;
+    --line:rgba(21,21,19,.16);
+    --shadow:0 30px 70px rgba(0,0,0,.13);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"DM Sans",sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    overflow-x:hidden;
+}
+
+/* =========================
+   LOADER
+========================= */
+
+.loader{
+    position:fixed;
+    inset:0;
+    background:var(--dark);
+    color:var(--bg);
+    z-index:99999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:opacity .8s ease,visibility .8s ease;
+}
+
+.loader.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-text{
+    font-size:clamp(3rem,10vw,8rem);
+    font-weight:900;
+    letter-spacing:-.08em;
+    animation:loaderPulse 1.2s infinite alternate;
+}
+
+@keyframes loaderPulse{
+    from{opacity:.35;transform:scale(.96)}
+    to{opacity:1;transform:scale(1)}
+}
+
+/* =========================
+   CURSOR GLOW
+========================= */
+
+.cursor-glow{
+    position:fixed;
+    width:300px;
+    height:300px;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:-1;
+    background:radial-gradient(
+        circle,
+        rgba(216,181,111,.16),
+        transparent 68%
+    );
+    transform:translate(-50%,-50%);
+    transition:left .25s ease,top .25s ease;
+}
+
+/* =========================
+   NAV
+========================= */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+    padding:20px 5vw;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    backdrop-filter:blur(16px);
+    background:rgba(231,224,212,.72);
+    border-bottom:1px solid rgba(21,21,19,.08);
+}
+
+.logo{
+    font-size:1.25rem;
+    font-weight:900;
+    letter-spacing:-.06em;
+}
+
+.logo span{
+    color:var(--gold);
+}
+
+.nav-links{
+    display:flex;
+    gap:28px;
+    list-style:none;
+}
+
+.nav-links a{
+    color:var(--ink);
+    text-decoration:none;
+    font-size:.8rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    position:relative;
+}
+
+.nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-5px;
+    width:0;
+    height:1px;
+    background:var(--gold);
+    transition:.3s;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:100vh;
+    padding:150px 6vw 90px;
+    position:relative;
+    display:grid;
+    grid-template-columns:1.2fr .8fr;
+    gap:60px;
+    align-items:center;
+    overflow:hidden;
+}
+
+.hero-bg{
+    position:absolute;
+    left:-4vw;
+    top:80px;
+    font-size:clamp(8rem,25vw,25rem);
+    line-height:.7;
+    font-weight:900;
+    letter-spacing:-.1em;
+    color:transparent;
+    -webkit-text-stroke:1px rgba(169,119,50,.15);
+    pointer-events:none;
+    z-index:-1;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.eyebrow{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-transform:uppercase;
+    font-size:.72rem;
+    font-weight:800;
+    letter-spacing:.2em;
+    margin-bottom:25px;
+}
+
+.eyebrow::before{
+    content:"";
+    width:40px;
+    height:1px;
+    background:var(--gold);
+}
+
+.hero h1{
+    font-size:clamp(5rem,11vw,11rem);
+    line-height:.75;
+    letter-spacing:-.09em;
+    font-weight:900;
+}
+
+.hero h1 span{
+    display:block;
+    margin-left:.15em;
+    color:var(--gold);
+    font-family:"Playfair Display",serif;
+    font-style:italic;
+    font-weight:500;
+    transform:rotate(-4deg);
+}
+
+.hero-description{
+    max-width:540px;
+    margin-top:45px;
+    color:var(--muted);
+    line-height:1.8;
+    font-size:.95rem;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:15px;
+    margin-top:30px;
+}
+
+.btn{
+    text-decoration:none;
+    padding:14px 22px;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    font-size:.75rem;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    transition:.35s;
+    display:inline-block;
+}
+
+.btn:hover{
+    transform:translateY(-5px);
+    box-shadow:10px 12px 0 var(--gold-light);
+}
+
+.btn.dark{
+    background:var(--ink);
+    color:var(--bg);
+}
+
+/* =========================
+   HERO PHOTO STACK
+========================= */
+
+.photo-scene{
+    position:relative;
+    height:570px;
+    perspective:1200px;
+}
+
+.photo-card{
+    position:absolute;
+    width:310px;
+    height:420px;
+    overflow:hidden;
+    background:var(--paper);
+    box-shadow:var(--shadow);
+    transition:transform .15s ease;
+    transform-style:preserve-3d;
+}
+
+.photo-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.photo-card.main{
+    right:5%;
+    top:40px;
+    transform:rotate(4deg);
+    z-index:3;
+}
+
+.photo-card.back{
+    right:23%;
+    top:95px;
+    transform:rotate(-8deg);
+    z-index:2;
+    opacity:.8;
+}
+
+.photo-card.small{
+    right:-2%;
+    bottom:5px;
+    width:190px;
+    height:250px;
+    transform:rotate(8deg);
+    z-index:4;
+}
+
+.photo-label{
+    position:absolute;
+    bottom:15px;
+    left:15px;
+    background:var(--dark);
+    color:white;
+    padding:8px 12px;
+    font-size:.65rem;
+    letter-spacing:.12em;
+    z-index:5;
+}
+
+.photo-orbit{
+    position:absolute;
+    width:480px;
+    height:480px;
+    border:1px solid rgba(169,119,50,.3);
+    border-radius:50%;
+    right:-30px;
+    top:20px;
+    transform:rotateX(65deg);
+    animation:orbit 18s linear infinite;
+}
+
+@keyframes orbit{
+    to{transform:rotateX(65deg) rotateZ(360deg)}
+}
+
+/* =========================
+   MARQUEE
+========================= */
+
+.marquee{
+    width:110%;
+    margin-left:-5%;
+    transform:rotate(-1.5deg);
+    overflow:hidden;
+    background:var(--dark);
+    color:var(--bg);
+    padding:18px 0;
+    border-block:1px solid var(--gold);
+}
+
+.marquee-track{
+    display:flex;
+    width:max-content;
+    animation:marquee 25s linear infinite;
+}
+
+.marquee span{
+    font-size:.8rem;
+    font-weight:800;
+    letter-spacing:.16em;
+    margin-right:35px;
+    white-space:nowrap;
+}
+
+@keyframes marquee{
+    to{transform:translateX(-50%)}
+}
+
+/* =========================
+   GENERAL SECTION
+========================= */
+
+section{
+    padding:130px 7vw;
+    position:relative;
+}
+
+.section-label{
+    font-size:.7rem;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.2em;
+    color:var(--gold);
+    margin-bottom:18px;
+}
+
+.section-title{
+    font-size:clamp(3.5rem,8vw,8rem);
+    line-height:.8;
+    letter-spacing:-.08em;
+    font-weight:900;
+}
+
+.section-title span{
+    color:var(--gold);
+    font-family:"Playfair Display",serif;
+    font-style:italic;
+    font-weight:500;
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about{
+    display:grid;
+    grid-template-columns:.7fr 1.3fr;
+    gap:80px;
+}
+
+.about-copy{
+    max-width:700px;
+    margin-top:45px;
+}
+
+.about-copy p{
+    font-size:1.15rem;
+    line-height:1.9;
+    color:#59554e;
+}
+
+.about-grid{
+    margin-top:60px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+}
+
+.info-card{
+    padding:30px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    min-height:190px;
+    transition:.4s;
+}
+
+.info-card:hover{
+    transform:translateY(-10px) rotateX(3deg) rotateY(-3deg);
+    box-shadow:var(--shadow);
+}
+
+.info-number{
+    font-size:2.8rem;
+    font-weight:900;
+    color:var(--gold);
+}
+
+.info-card h3{
+    margin:12px 0 8px;
+}
+
+.info-card p{
+    font-size:.8rem;
+    color:var(--muted);
+    line-height:1.6;
+}
+
+/* =========================
+   PHOTO GALLERY
+========================= */
+
+.gallery-section{
+    background:var(--dark);
+    color:var(--bg);
+    overflow:hidden;
+}
+
+.gallery-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    gap:30px;
+}
+
+.gallery-head .section-title{
+    color:var(--bg);
+}
+
+.gallery-description{
+    max-width:380px;
+    color:#aaa39a;
+    line-height:1.8;
+}
+
+.gallery{
+    margin-top:70px;
+    display:grid;
+    grid-template-columns:1.1fr .7fr .9fr;
+    grid-template-rows:260px 330px;
+    gap:15px;
+}
+
+.gallery-item{
+    overflow:hidden;
+    position:relative;
+    background:#24231f;
+    transform-style:preserve-3d;
+    transition:.5s;
+}
+
+.gallery-item:hover{
+    transform:perspective(900px) rotateX(3deg) rotateY(-4deg) translateY(-8px);
+    z-index:3;
+}
+
+.gallery-item img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .7s ease;
+}
+
+.gallery-item:hover img{
+    transform:scale(1.08);
+}
+
+.gallery-item:nth-child(1){
+    grid-row:span 2;
+}
+
+.gallery-item:nth-child(4){
+    grid-column:span 2;
+}
+
+.gallery-tag{
+    position:absolute;
+    left:15px;
+    bottom:15px;
+    padding:8px 12px;
+    background:rgba(21,21,19,.8);
+    backdrop-filter:blur(10px);
+    font-size:.65rem;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+}
+
+/* =========================
+   SKILLS
+========================= */
+
+.skills-layout{
+    display:grid;
+    grid-template-columns:.7fr 1.3fr;
+    gap:100px;
+    margin-top:80px;
+}
+
+.skills-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    align-content:start;
+}
+
+.skill{
+    padding:16px 20px;
+    border:1px solid var(--line);
+    background:var(--paper);
+    font-size:.8rem;
+    font-weight:700;
+    transition:.3s;
+}
+
+.skill:hover{
+    background:var(--ink);
+    color:var(--bg);
+    transform:translateY(-6px) rotate(-2deg);
+}
+
+.skill:nth-child(2n){
+    transform:rotate(1deg);
+}
+
+/* =========================
+   PROJECTS
+========================= */
+
+.projects{
+    background:#ded6c8;
+}
+
+.project-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+}
+
+.project-grid{
+    margin-top:70px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.project{
+    background:var(--paper);
+    border:1px solid var(--line);
+    padding:15px;
+    transition:.5s cubic-bezier(.2,.8,.2,1);
+    transform-style:preserve-3d;
+}
+
+.project:hover{
+    transform:translateY(-12px) rotateX(2deg) rotateY(-2deg);
+    box-shadow:var(--shadow);
+}
+
+.project.featured{
+    grid-column:span 2;
+    display:grid;
+    grid-template-columns:1.3fr .7fr;
+}
+
+.project-image{
+    height:330px;
+    background:#292721;
+    overflow:hidden;
+    position:relative;
+}
+
+.featured .project-image{
+    height:460px;
+}
+
+.project-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.7s;
+}
+
+.project:hover .project-image img{
+    transform:scale(1.07);
+}
+
+.project-content{
+    padding:25px;
+}
+
+.project-number{
+    font-size:.65rem;
+    letter-spacing:.18em;
+    color:var(--gold);
+    font-weight:800;
+}
+
+.project h3{
+    font-size:2rem;
+    letter-spacing:-.05em;
+    margin:12px 0;
+}
+
+.project p{
+    color:var(--muted);
+    line-height:1.7;
+    font-size:.85rem;
+}
+
+.project-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-top:20px;
+}
+
+.project-tags span{
+    border:1px solid var(--line);
+    padding:6px 9px;
+    font-size:.6rem;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+}
+
+/* =========================
+   JOURNAL
+========================= */
+
+.journal-grid{
+    margin-top:70px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.article{
+    padding:30px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    min-height:290px;
+    transition:.4s;
+}
+
+.article:hover{
+    transform:translateY(-10px);
+    box-shadow:var(--shadow);
+}
+
+.article small{
+    color:var(--gold);
+    font-weight:800;
+    letter-spacing:.12em;
+}
+
+.article h3{
+    font-size:1.6rem;
+    letter-spacing:-.04em;
+    margin:25px 0 12px;
+}
+
+.article p{
+    color:var(--muted);
+    line-height:1.7;
+    font-size:.82rem;
+}
+
+/* =========================
+   MANIFESTO
+========================= */
+
+.manifesto{
+    background:var(--dark);
+    color:var(--bg);
+    min-height:80vh;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+}
+
+.manifesto-bg{
+    position:absolute;
+    font-size:35vw;
+    font-weight:900;
+    letter-spacing:-.1em;
+    color:transparent;
+    -webkit-text-stroke:1px rgba(216,181,111,.12);
+    right:-5vw;
+    top:0;
+}
+
+.manifesto-content{
+    max-width:1000px;
+    position:relative;
+    z-index:2;
+}
+
+.manifesto h2{
+    font-size:clamp(4rem,9vw,10rem);
+    line-height:.8;
+    letter-spacing:-.09em;
+}
+
+.manifesto h2 span{
+    color:var(--gold-light);
+    font-family:"Playfair Display",serif;
+    font-style:italic;
+    font-weight:500;
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact{
+    background:var(--gold);
+    color:var(--dark);
+    min-height:75vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.contact h2{
+    font-size:clamp(4rem,10vw,11rem);
+    line-height:.75;
+    letter-spacing:-.09em;
+}
+
+.contact h2 span{
+    font-family:"Playfair Display",serif;
+    font-style:italic;
+    font-weight:500;
+}
+
+.contact-info{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-top:55px;
+}
+
+.contact-info a{
+    color:var(--dark);
+    text-decoration:none;
+    border:1px solid var(--dark);
+    padding:14px 20px;
+    font-weight:800;
+    font-size:.75rem;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    transition:.3s;
+}
+
+.contact-info a:hover{
+    background:var(--dark);
+    color:var(--gold-light);
+    transform:translateY(-5px);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:var(--dark);
+    color:#aaa39a;
+    padding:30px 7vw;
+    display:flex;
+    justify-content:space-between;
+    font-size:.7rem;
+    letter-spacing:.08em;
+}
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+.reveal{
+    opacity:0;
+    transform:translateY(45px);
+    filter:blur(5px);
+    transition:
+        opacity .9s ease,
+        transform .9s cubic-bezier(.16,1,.3,1),
+        filter .9s ease;
+}
+
+.reveal.show{
+    opacity:1;
+    transform:none;
+    filter:none;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+    nav{
+        padding:16px 5vw;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero{
+        grid-template-columns:1fr;
+        padding-top:130px;
+    }
+
+    .hero h1{
+        font-size:clamp(4.5rem,18vw,8rem);
+    }
+
+    .photo-scene{
+        height:500px;
+        margin-top:20px;
+    }
+
+    .photo-card.main{
+        right:12%;
+    }
+
+    .photo-card.back{
+        right:28%;
+    }
+
+    .photo-card.small{
+        right:5%;
+    }
+
+    .about{
+        grid-template-columns:1fr;
+    }
+
+    .about-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .skills-layout{
+        grid-template-columns:1fr;
+        gap:40px;
+    }
+
+    .project-grid{
+        grid-template-columns:1fr;
+    }
+
+    .project.featured{
+        grid-column:span 1;
+        display:block;
+    }
+
+    .journal-grid{
+        grid-template-columns:1fr;
+    }
+
+    .gallery{
+        grid-template-columns:1fr 1fr;
+        grid-template-rows:250px 250px 250px;
+    }
+
+    .gallery-item:nth-child(1){
+        grid-row:span 2;
+    }
+
+    .gallery-item:nth-child(4){
+        grid-column:span 2;
+    }
+}
+
+@media(max-width:600px){
+
+    section{
+        padding:90px 6vw;
+    }
+
+    .hero{
+        padding-left:6vw;
+        padding-right:6vw;
+    }
+
+    .photo-scene{
+        height:440px;
+    }
+
+    .photo-card{
+        width:240px;
+        height:330px;
+    }
+
+    .photo-card.main{
+        right:0;
+    }
+
+    .photo-card.back{
+        left:0;
+        right:auto;
+    }
+
+    .photo-card.small{
+        width:140px;
+        height:190px;
+        right:0;
+    }
+
+    .about-grid{
+        grid-template-columns:1fr;
+    }
+
+    .gallery{
+        display:flex;
+        flex-direction:column;
+    }
+
+    .gallery-item,
+    .gallery-item:nth-child(1),
+    .gallery-item:nth-child(4){
+        height:280px;
+    }
+
+    .project-image,
+    .featured .project-image{
+        height:280px;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    footer{
+        flex-direction:column;
+        gap:10px;
+    }
+}
+
+/* ===== DARK MODE ===== */
+html.dark-mode{
+  --bg:#11110f;
+  --paper:#1b1a17;
+  --ink:#f4eee4;
+  --muted:#aaa39a;
+  --gold:#d8b56f;
+  --gold-light:#e5c889;
+  --dark:#f4eee4;
+  --line:rgba(244,238,228,.16);
+  --shadow:0 30px 70px rgba(0,0,0,.42);
+}
+
+body{
+  transition:background-color .45s ease,color .45s ease;
+}
+
+.nav,
+.projects,
+.gallery,
+.manifesto,
+.contact,
+.about,
+.skills,
+.journal{
+  transition:background-color .45s ease,color .45s ease,border-color .45s ease;
+}
+
+html.dark-mode body{
+  background:var(--bg);
+  color:var(--ink);
+}
+
+html.dark-mode .nav{
+  background:rgba(17,17,15,.88);
+  border-color:var(--line);
+}
+
+html.dark-mode .projects{
+  background:#0d0d0c;
+}
+
+html.dark-mode .about p,
+html.dark-mode .project p,
+html.dark-mode .article p{
+  color:var(--muted);
+}
+
+html.dark-mode .gallery,
+html.dark-mode .manifesto{
+  background:#151412;
+}
+
+html.dark-mode .btn.dark{
+  background:var(--ink);
+  color:#11110f;
+}
+
+html.dark-mode .skill:hover{
+  background:var(--ink);
+  color:#11110f;
+}
+
+html.dark-mode .photo-label{
+  background:rgba(17,17,15,.82);
+  color:var(--ink);
+}
+
+html.dark-mode .contact-links a{
+  background:var(--paper);
+  color:var(--ink);
+  border-color:var(--line);
+}
+
+/* Theme toggle */
+.theme-toggle{
+  width:46px;
+  height:46px;
+  flex:0 0 46px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:var(--paper);
+  color:var(--ink);
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  font-size:20px;
+  line-height:1;
+  padding:0;
+  transition:
+    transform .3s ease,
+    background-color .45s ease,
+    color .45s ease,
+    border-color .45s ease;
+  box-shadow:0 10px 24px rgba(0,0,0,.08);
+}
+
+.theme-toggle:hover{
+  transform:translateY(-2px) rotate(8deg);
+}
+
+.theme-toggle .moon{
+  display:none;
+}
+
+html.dark-mode .theme-toggle .sun{
+  display:none;
+}
+
+html.dark-mode .theme-toggle .moon{
+  display:inline;
+}
+
+@media(max-width:900px){
+  .theme-toggle{
+    width:42px;
+    height:42px;
+    flex-basis:42px;
+    font-size:18px;
+  }
+}
+
+
+/* ===== PROJECT EXTERNAL LINKS ===== */
+.project-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:18px;
+}
+.project-links a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:10px 15px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:var(--ink);
+  background:transparent;
+  text-decoration:none;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  transition:transform .25s ease,background-color .3s ease,color .3s ease,border-color .3s ease;
+}
+.project-links a:hover{
+  transform:translateY(-2px);
+  background:var(--ink);
+  color:var(--bg);
+  border-color:var(--ink);
+}
+html.dark-mode .project-links a:hover{
+  background:var(--ink);
+  color:var(--bg);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div class="loader">
+    <div class="loader-text">LENA.</div>
+</div>
+
+<div class="cursor-glow"></div>
+
+<!-- NAV -->
+<nav>
+    <div class="logo">E<span>.</span></div>
+
+    <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#journal">Journal</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+<button class="theme-toggle" id="themeToggle"
+        aria-label="Switch to dark mode"
+        title="Switch to dark mode">
+  <span class="sun">☀</span>
+  <span class="moon">☾</span>
+</button>
+
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+    <div class="hero-bg">LENA</div>
+
+    <div class="hero-content reveal">
+
+        <div class="eyebrow">
+            Creative Technology Student
+        </div>
+
+        <h1>
+            HELLO
+            <span>LENA.</span>
+        </h1>
+
+        <p class="hero-description">
+            Student of Teknik Jaringan Komputer dan Telekomunikasi
+            yang tertarik pada networking, cloud, IoT, digital design,
+            dan bagaimana teknologi bisa dibuat lebih meaningful.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#projects" class="btn dark">
+                Explore Work
+            </a>
+
+            <a href="#contact" class="btn">
+                Contact Me
+            </a>
+        </div>
+
+    </div>
+
+
+    <!-- MULTIPLE PHOTO STACK -->
+
+    <div class="photo-scene reveal">
+
+        <div class="photo-orbit"></div>
+
+        <!-- FOTO UTAMA -->
+        <div class="photo-card main">
+
+            <img
+                src="lena4.jpeg"
+                alt="Lena profile"
+            >
+
+            <div class="photo-label">
+                PORTRAIT / 01
+            </div>
+
+        </div>
+
+
+        <!-- FOTO KEDUA -->
+        <div class="photo-card back">
+
+            <img
+                src="lena1.jpeg"
+                alt="Lena photo 01"
+            >
+
+        </div>
+
+
+        <!-- FOTO KETIGA -->
+        <div class="photo-card small">
+
+            <img
+                src="lena3.jpeg"
+                alt="Lena photo 02"
+            >
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MARQUEE -->
+
+<div class="marquee">
+
+    <div class="marquee-track">
+
+        <span>NETWORKING ✦</span>
+        <span>CLOUD ✦</span>
+        <span>IOT ✦</span>
+        <span>UI / UX ✦</span>
+        <span>DIGITAL DESIGN ✦</span>
+        <span>CREATIVE TECH ✦</span>
+
+        <span>NETWORKING ✦</span>
+        <span>CLOUD ✦</span>
+        <span>IOT ✦</span>
+        <span>UI / UX ✦</span>
+        <span>DIGITAL DESIGN ✦</span>
+        <span>CREATIVE TECH ✦</span>
+
+    </div>
+
+</div>
+
+
+<!-- ABOUT -->
+
+<section id="about">
+
+    <div class="about">
+
+        <div class="reveal">
+
+            <div class="section-label">
+                01 / About
+            </div>
+
+            <h2 class="section-title">
+                WHO<br>
+                <span>I AM.</span>
+            </h2>
+
+        </div>
+
+
+        <div class="reveal">
+
+            <div class="about-copy">
+
+                <p>
+                    Hi, I’m Lena, a curious and detail-oriented student from Indonesia with a growing interest in technology, especially computer networking, cloud computing, and IoT.
+I enjoy exploring how technology works behind the scenes, from configuring networks and experimenting with cloud environments to building simple IoT projects. I’m also interested in digital design and finding creative ways to turn ideas into something practical and meaningful.
+I believe that learning is not about knowing everything from the start, but about being willing to explore, make mistakes, and keep improving. Right now, I’m focused on building my skills, gaining real-world experience, and preparing myself for the next chapter beyond school.
+I’m still figuring out where this journey will take me, but I know I want to keep creating, learning, and growing along the way.
+                </p>
+
+            </div>
+
+
+            <div class="about-grid">
+
+                <div class="info-card">
+                    <div class="info-number">01</div>
+                    <h3>Networking</h3>
+                    <p>
+                        MikroTik, Cisco, routing, OSPF,
+                        subnetting dan network operations.
+                    </p>
+                </div>
+
+
+                <div class="info-card">
+                    <div class="info-number">02</div>
+                    <h3>Cloud</h3>
+                    <p>
+                        AWS EC2, Route53,
+                        hosting dan basic cloud infrastructure.
+                    </p>
+                </div>
+
+
+                <div class="info-card">
+                    <div class="info-number">03</div>
+                    <h3>IoT</h3>
+                    <p>
+                        ESP32, sensors, LED,
+                        connectivity dan physical computing.
+                    </p>
+                </div>
+
+
+                <div class="info-card">
+                    <div class="info-number">04</div>
+                    <h3>Design</h3>
+                    <p>
+                        UI/UX, Figma, CorelDraw
+                        dan visual communication.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PERSONAL PHOTO GALLERY -->
+
+<section id="gallery" class="gallery-section">
+
+    <div class="gallery-head reveal">
+
+        <div>
+
+            <div class="section-label">
+                02 / Personal Archive
+            </div>
+
+            <h2 class="section-title">
+                MY<br>
+                <span>WORLD.</span>
+            </h2>
+
+        </div>
+
+        <p class="gallery-description">
+            Karena portfolio personal nggak harus selalu
+            serius. Bagian ini bisa diisi foto kegiatan,
+            sekolah, project day, event, atau random moments.
+        </p>
+
+    </div>
+
+
+    <div class="gallery">
+
+        <!-- FOTO 01 -->
+        <div class="gallery-item reveal">
+
+            <img
+                src ="fren1.jpeg"
+                alt="Lena photo 01"
+            >
+
+            <div class="gallery-tag">
+                Portrait / 01
+            </div>
+
+        </div>
+
+
+        <!-- FOTO 02 -->
+        <div class="gallery-item reveal">
+
+            <img
+                src="FREN.jpeg"
+                alt="Lena photo 02"
+            >
+
+            <div class="gallery-tag">
+                Moment / 02
+            </div>
+
+        </div>
+
+
+        <!-- FOTO 03 -->
+        <div class="gallery-item reveal">
+
+            <img
+                src="fren3.jpeg"
+                alt="Lena photo 03"
+            >
+
+            <div class="gallery-tag">
+                Moment / 03
+            </div>
+
+        </div>
+
+
+        <!-- FOTO 04 -->
+        <div class="gallery-item reveal">
+
+            <img
+                src="fren2.jpeg"
+                alt="Lena photo 04"
+            >
+
+            <div class="gallery-tag">
+                Landscape / 04
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SKILLS -->
+
+<section id="skills">
+
+    <div class="reveal">
+
+        <div class="section-label">
+            03 / Capabilities
+        </div>
+
+        <h2 class="section-title">
+            WHAT I<br>
+            <span>DO.</span>
+        </h2>
+
+    </div>
+
+
+    <div class="skills-layout">
+
+        <div class="reveal">
+
+            <p style="color:var(--muted);line-height:1.8;">
+                Skills yang sedang aku bangun dan terus aku
+                kembangin selama perjalanan di TJKT.
+            </p>
+
+        </div>
+
+
+        <div class="skills-list reveal">
+
+            <div class="skill">MikroTik</div>
+            <div class="skill">Cisco</div>
+            <div class="skill">Routing</div>
+            <div class="skill">OSPF</div>
+            <div class="skill">Subnetting</div>
+            <div class="skill">Fiber Optic</div>
+            <div class="skill">AWS EC2</div>
+            <div class="skill">Route53</div>
+            <div class="skill">ESP32</div>
+            <div class="skill">IoT</div>
+            <div class="skill">Figma</div>
+            <div class="skill">UI / UX</div>
+            <div class="skill">CorelDraw</div>
+            <div class="skill">GitHub</div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PROJECTS -->
+
+<section id="projects" class="projects">
+
+    <div class="project-header reveal">
+
+        <div>
+
+            <div class="section-label">
+                04 / Selected Work
+            </div>
+
+            <h2 class="section-title">
+                THINGS<br>
+                <span>I BUILT.</span>
+            </h2>
+
+        </div>
+
+        <div style="font-size:.7rem;letter-spacing:.15em;font-weight:800;">
+            2024 — 2026
+        </div>
+
+    </div>
+
+
+    <div class="project-grid">
+
+        <!-- FEATURED PROJECT -->
+
+        <article class="project featured reveal">
+
+            <div class="project-image">
+
+                <img
+                    src="iot.jpeg"
+                    alt="IoT project"
+                >
+
+            </div>
+
+            <div class="project-content">
+
+                <div class="project-number">
+                    PROJECT / 01
+                </div>
+
+                <h3>
+                    IoT Running Light
+                </h3>
+
+                <p>
+                    Simulasi topologi star menggunakan ESP32
+                    dengan sistem RGB LED dan buzzer yang
+                    memberikan indikator berdasarkan kondisi
+                    koneksi Wi-Fi.
+                </p>
+
+                <div class="project-tags">
+                    <span>ESP32</span>
+                    <span>IoT</span>
+                    <span>Networking</span>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- PROJECT 02 -->
+
+        <article class="project reveal">
+
+            <div class="project-image">
+
+                <img
+                    src="foodyuk.jpeg"
+                    alt="FoodYuk UI UX"
+                >
+
+            </div>
+
+            
+<div class="project-links">
+  <a href="https://www.figma.com/design/j7VyWJbBtk4fP9iMKkQ0YC/ELEEENNAAAOOOOOAOOAO?node-id=76-72&t=ObbsPABAIWt4FJ20-1" target="_blank" rel="noopener noreferrer">View Figma ↗</a>
+</div>
+<div class="project-content">
+
+                <div class="project-number">
+                    PROJECT / 02
+                </div>
+
+                <h3>
+                    FoodYuk
+                </h3>
+
+                <p>
+                    Eksplorasi UI/UX aplikasi menggunakan Figma
+                    dengan fokus pada user flow dan visual interface.
+                </p>
+
+                <div class="project-tags">
+                    <span>Figma</span>
+                    <span>UI / UX</span>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- PROJECT 03 -->
+
+        <article class="project reveal">
+
+            <div class="project-image">
+
+                <img
+                    src="netwok.jpeg"
+                    alt="Network project"
+                >
+
+            </div>
+
+            <div class="project-content">
+
+                <div class="project-number">
+                    PROJECT / 03
+                </div>
+
+                <h3>
+                    Network Lab
+                </h3>
+
+                <p>
+                    Praktik routing, MikroTik, Cisco,
+                    OSPF, subnetting dan network configuration.
+                </p>
+
+                <div class="project-tags">
+                    <span>MikroTik</span>
+                    <span>Cisco</span>
+                    <span>OSPF</span>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- PROJECT 04 -->
+
+        <article class="project reveal">
+
+            <div class="project-image">
+
+                <img
+                    src="kasir.png"
+                    alt="SaaS Kasir"
+                >
+
+            </div>
+
+            
+<div class="project-links">
+  <a href="https://github.com/magdhaleena/saas_kasir" target="_blank" rel="noopener noreferrer">View GitHub ↗</a>
+</div>
+<div class="project-content">
+
+                <div class="project-number">
+                    PROJECT / 04
+                </div>
+
+                <h3>
+                   SaaS Kasir
+                </h3>
+
+                <p>
+                    Pengembangan aplikasi kasir berbasis web menggunakan Node.js, JavaScript, dan MongoDB untuk mengelola produk dan transaksi.
+                </p>
+
+                <div class="project-tags">
+                    <span>Node.js</span>
+                    <span>MongoDB</span>
+                    <span>Railway</span>
+                </div>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- JOURNAL -->
+
+<section id="journal">
+
+    <div class="reveal">
+
+        <div class="section-label">
+            05 / Journal
+        </div>
+
+        <h2 class="section-title">
+            NOTES<br>
+            <span>& IDEAS.</span>
+        </h2>
+
+    </div>
+
+
+    <div class="journal-grid">
+
+        <article class="article reveal">
+
+            <small>01 / NETWORK</small>
+
+            <h3>
+                Learning To Understand Networks
+            </h3>
+
+            <p>
+                Catatan tentang perjalanan memahami
+                networking dari konsep dasar sampai
+                routing dan konfigurasi perangkat.
+            </p>
+
+        </article>
+
+
+        <article class="article reveal">
+
+            <small>02 / IOT</small>
+
+            <h3>
+                When Hardware Meets Connectivity
+            </h3>
+
+            <p>
+                Eksperimen dengan ESP32 dan bagaimana
+                koneksi jaringan bisa diterjemahkan
+                menjadi respons dari perangkat.
+            </p>
+
+        </article>
+
+
+        <article class="article reveal">
+
+            <small>03 / DESIGN</small>
+
+            <h3>
+                Making Technology Look Better
+            </h3>
+
+            <p>
+                Kenapa visual, layout, typography,
+                dan interaction juga penting ketika
+                membangun sebuah produk digital.
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- MANIFESTO -->
+
+<section class="manifesto">
+
+    <div class="manifesto-bg">
+        E
+    </div>
+
+    <div class="manifesto-content reveal">
+
+        <div class="section-label">
+            Personal Manifesto
+        </div>
+
+        <h2>
+            CURIOUS<br>
+            ENOUGH TO
+            <span>EXPLORE.</span>
+            <br>
+            RESTLESS ENOUGH
+            TO <span>BUILD.</span>
+        </h2>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section id="contact" class="contact">
+
+    <div class="section-label">
+        06 / Contact
+    </div>
+
+    <h2 class="reveal">
+        LET'S<br>
+        <span>CONNECT.</span>
+    </h2>
+
+    <div class="contact-info reveal">
+
+        <a href="mailto:amandamagdhalenna@gmail.com">
+            Email
+        </a>
+
+        <a href="https://github.com/magdhaleena" target="_blank">
+            GitHub
+        </a>
+
+        <a href="https://www.instagram.com/magdhaleenna?stkn=OGFvaGJtbms3bnE2" target="_blank">
+            Instagram
+        </a>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div>
+        LENA © 2026
+    </div>
+
+    <div>
+        Teknik Jaringan Komputer dan Telekomunikasi
+    </div>
+
+</footer>
+
+
+<script>
+
+/* =========================
+   LOADER
+========================= */
+
+window.addEventListener("load", () => {
+
+    setTimeout(() => {
+
+        document.querySelector(".loader")
+            .classList.add("hide");
+
+    },700);
+
+});
+
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+const reveals =
+document.querySelectorAll(".reveal");
+
+const observer =
+new IntersectionObserver(
+
+    entries => {
+
+        entries.forEach(entry => {
+
+            if(entry.isIntersecting){
+
+                entry.target.classList.add("show");
+
+            }
+
+        });
+
+    },
+
+    {
+        threshold:.12
+    }
+
+);
+
+reveals.forEach(el =>
+    observer.observe(el)
+);
+
+
+/* =========================
+   CURSOR GLOW
+========================= */
+
+const glow =
+document.querySelector(".cursor-glow");
+
+document.addEventListener("mousemove", e => {
+
+    glow.style.left = e.clientX + "px";
+    glow.style.top = e.clientY + "px";
+
+});
+
+
+/* =========================
+   HERO 3D PARALLAX
+========================= */
+
+const photoScene =
+document.querySelector(".photo-scene");
+
+const photos =
+document.querySelectorAll(".photo-card");
+
+document.addEventListener("mousemove", e => {
+
+    if(window.innerWidth < 800) return;
+
+    const x =
+        (e.clientX / window.innerWidth - .5);
+
+    const y =
+        (e.clientY / window.innerHeight - .5);
+
+
+    photos.forEach((photo,index) => {
+
+        const depth =
+            (index + 1) * 7;
+
+        const rotateX =
+            y * -depth;
+
+        const rotateY =
+            x * depth;
+
+        const moveX =
+            x * depth * 2;
+
+        const moveY =
+            y * depth * 2;
+
+        photo.style.transform =
+            `translate3d(${moveX}px,${moveY}px,${depth}px)
+             rotateX(${rotateX}deg)
+             rotateY(${rotateY}deg)
+             rotate(${index === 0 ? 4 : index === 1 ? -8 : 8}deg)`;
+
+    });
+
+});
+
+
+/* =========================
+   3D PROJECT TILT
+========================= */
+
+const cards =
+document.querySelectorAll(".project,.info-card,.article,.gallery-item");
+
+cards.forEach(card => {
+
+    card.addEventListener("mousemove", e => {
+
+        if(window.innerWidth < 800) return;
+
+        const rect =
+            card.getBoundingClientRect();
+
+        const x =
+            (e.clientX - rect.left) /
+            rect.width - .5;
+
+        const y =
+            (e.clientY - rect.top) /
+            rect.height - .5;
+
+        const rotateX =
+            y * -6;
+
+        const rotateY =
+            x * 6;
+
+        card.style.transform =
+            `perspective(900px)
+             rotateX(${rotateX}deg)
+             rotateY(${rotateY}deg)
+             translateY(-8px)
+             translateZ(12px)`;
+
+    });
+
+
+    card.addEventListener("mouseleave", () => {
+
+        card.style.transform = "";
+
+    });
+
+});
+
+
+/* =========================
+   MAGNETIC BUTTON
+========================= */
+
+const buttons =
+document.querySelectorAll(".btn,.contact-info a");
+
+buttons.forEach(btn => {
+
+    btn.addEventListener("mousemove", e => {
+
+        if(window.innerWidth < 800) return;
+
+        const rect =
+            btn.getBoundingClientRect();
+
+        const x =
+            e.clientX -
+            rect.left -
+            rect.width / 2;
+
+        const y =
+            e.clientY -
+            rect.top -
+            rect.height / 2;
+
+        btn.style.transform =
+            `translate(${x*.08}px,${y*.08}px)`;
+
+    });
+
+
+    btn.addEventListener("mouseleave", () => {
+
+        btn.style.transform = "";
+
+    });
+
+});
+
+
+/* =========================
+   SCROLL PROGRESS
+========================= */
+
+const progress =
+document.createElement("div");
+
+progress.style.position="fixed";
+progress.style.top="0";
+progress.style.left="0";
+progress.style.height="3px";
+progress.style.width="0";
+progress.style.background=
+"linear-gradient(90deg,#a97732,#e0bd76)";
+progress.style.zIndex="99999";
+
+document.body.appendChild(progress);
+
+window.addEventListener("scroll",()=>{
+
+    const scrollTop =
+        window.scrollY;
+
+    const height =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
+
+    const percent =
+        (scrollTop / height) * 100;
+
+    progress.style.width =
+        percent + "%";
+
+});
+
+
+/* =========================
+   SMOOTH ANCHOR
+========================= */
+
+document.querySelectorAll("a[href^='#']")
+.forEach(link => {
+
+    link.addEventListener("click", e => {
+
+        const target =
+            document.querySelector(
+                link.getAttribute("href")
+            );
+
+        if(target){
+
+            e.preventDefault();
+
+            target.scrollIntoView({
+                behavior:"smooth"
+            });
+
+        }
+
+    });
+
+});
+
+
+/* ===== DARK MODE TOGGLE ===== */
+(function(){
+  const root = document.documentElement;
+  const toggle = document.getElementById("themeToggle");
+
+  if(!toggle) return;
+
+  const savedTheme = localStorage.getItem("theme");
+
+  if(savedTheme === "dark"){
+    root.classList.add("dark-mode");
+  }
+
+  function updateThemeButton(){
+    const isDark = root.classList.contains("dark-mode");
+    toggle.setAttribute(
+      "aria-label",
+      isDark ? "Switch to light mode" : "Switch to dark mode"
+    );
+    toggle.setAttribute(
+      "title",
+      isDark ? "Switch to light mode" : "Switch to dark mode"
+    );
+  }
+
+  updateThemeButton();
+
+  toggle.addEventListener("click", function(){
+    const isDark = root.classList.toggle("dark-mode");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+    updateThemeButton();
+  });
+})();
+
+</script>
+
+</body>
+</html>
